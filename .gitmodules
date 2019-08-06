@@ -1,0 +1,4 @@
+[submodule "docker-splunk"]
+	path = docker-splunk
+	url = https://github.com/splunk/docker-splunk.git
+	branch = develop
