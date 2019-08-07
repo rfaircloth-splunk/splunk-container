@@ -92,7 +92,6 @@ then
 
 elif [ $SPLUNK_ROLE == "LICENSE" ]
 then
-    SPLUNK_CLUSTER_MODE=searchead
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering pass4SymmKey $SPLUNK_SERVER_CLUSTER_PASS4SYMMKEY
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
 
