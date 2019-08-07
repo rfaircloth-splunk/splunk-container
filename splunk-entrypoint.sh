@@ -78,9 +78,16 @@ then
         echo quarantinePastSecs = 604800 >>$FILE
 
     fi
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store path s3://insta-kops-spl-kops.spl.guru/primary
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store storageType remote
+
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf default remotePath volume:remote_store/\$_index_name
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf _telemetry repFactor 0
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf _introspection  repFactor 0
 
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf splunktcp-ssl:9997 connection_host ip
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf splunktcp-ssl:9997 compressed false
