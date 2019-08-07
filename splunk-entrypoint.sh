@@ -95,13 +95,21 @@ then
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering pass4SymmKey $SPLUNK_SERVER_CLUSTER_PASS4SYMMKEY
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
 
+elif [ $SPLUNK_ROLE == "CONSOLE" ]
+then
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering pass4SymmKey $SPLUNK_SERVER_CLUSTER_PASS4SYMMKEY
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
 
-#elif [ $SPLUNK_ROLE == "CONSOLE" ]
-#
-#elif [ $SPLUNK_ROLE == "LICENSE" ]
-#
-#else
-#
+elif [ $SPLUNK_ROLE == "SEARCHHEAD" ]
+then
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering pass4SymmKey $SPLUNK_SERVER_CLUSTER_PASS4SYMMKEY
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
+
+elif [ $SPLUNK_ROLE == "SHCMEMBER" ]
+then
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering pass4SymmKey $SPLUNK_SERVER_CLUSTER_PASS4SYMMKEY
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
+
 fi
 
 crudini --set $APPS_ROLE_BASE/local/server.conf general hostnameOption fullyqualifiedname
