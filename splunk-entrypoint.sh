@@ -80,11 +80,11 @@ then
     fi
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store path $SPLUNK_SMARTSTORE_URI
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store storageType remote
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption sse-c
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_type kms
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_refresh_interval 86400
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.auth_region $SPLUNK_SMARTSTORE_KMS_AUTH_REGION
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.key_id $SPLUNK_SMARTSTORE_KMS_AUTH_KEYID
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption sse-c
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_type kms
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_refresh_interval 86400
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.auth_region $SPLUNK_SMARTSTORE_KMS_AUTH_REGION
+#    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.key_id $SPLUNK_SMARTSTORE_KMS_AUTH_KEYID
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf default remotePath volume:remote_store/\$_index_name
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf _telemetry repFactor 0
