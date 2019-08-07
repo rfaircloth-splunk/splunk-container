@@ -60,7 +60,7 @@ then
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering search_factor 2
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering restart_timeout 180
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering quiet_period 180
-    crudini --set $APPS_ROLE_BASE/local/server.conf clustering percent_peers_to_restart 50
+    crudini --set $APPS_ROLE_BASE/local/server.conf clustering percent_peers_to_restart 80
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering max_peers_to_download_bundle 10
 
     mkdir -p $MASTER_APPS_ROLE_BASE/local || true
@@ -78,8 +78,13 @@ then
         echo quarantinePastSecs = 604800 >>$FILE
 
     fi
-    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store path s3://insta-kops-spl-kops.spl.guru/primary
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store path $SPLUNK_SMARTSTORE_URI
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store storageType remote
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption sse-c
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_type kms
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.encryption.sse-c.key_refresh_interval 86400
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.auth_region $SPLUNK_SMARTSTORE_KMS_AUTH_REGION
+    crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf volume:remote_store remote.s3.kms.key_id $SPLUNK_SMARTSTORE_KMS_AUTH_KEYID
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf default remotePath volume:remote_store/\$_index_name
     crudini --set $MASTER_APPS_ROLE_BASE/local/indexes.conf _telemetry repFactor 0
