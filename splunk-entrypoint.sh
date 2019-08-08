@@ -97,6 +97,15 @@ then
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf SSL sslPassword password
 
 
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http disabled 0
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http sourcetype hec:unknown
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http dedicatedIoThreads 4
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http serverCert $SPLUNK_HOME/etc/auth/protected.pem
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http sslPassword password
+
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary token ${SPLUNK_SERVER_HEC_TOKEN_PRIMARY}
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary queueSize 10MB
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary proxied_ip
 
 elif [ $SPLUNK_ROLE == "LICENSE" ]
 then
