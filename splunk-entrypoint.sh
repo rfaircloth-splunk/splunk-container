@@ -105,7 +105,7 @@ then
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary token ${SPLUNK_SERVER_HEC_TOKEN_PRIMARY}
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary queueSize 10MB
-    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary proxied_ip
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary connection_host proxied_ip
 
 elif [ $SPLUNK_ROLE == "LICENSE" ]
 then
