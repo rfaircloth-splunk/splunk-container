@@ -167,9 +167,9 @@ cat /opt/splunk/certmanager/tls.crt >$SPLUNK_HOME/etc/auth/web.crt
 
 echo "$(date) : Starting Splunk"
 
-if [ "$SPLUNK_ROLE" == "INDEXER" ]
-then
-    exec /opt/splunk/bin/splunk start splunkd --nodaemon --no-prompt --answer-yes $SPLUNK_START_ARGS
-else
+#if [ "$SPLUNK_ROLE" == "INDEXER" ]
+#then
+#    exec /opt/splunk/bin/splunk start splunkd --nodaemon --no-prompt --answer-yes $SPLUNK_START_ARGS
+#else
     exec /opt/splunk/bin/splunk start --nodaemon --no-prompt --answer-yes $SPLUNK_START_ARGS
-fi
+#fi
