@@ -157,8 +157,8 @@ sudo update-ca-trust
 
 echo "$(date) : Setting up Splunkd cert and key"
 openssl rsa -des -in /opt/splunk/certmanager/tls.key -out /tmp/private.key -passout pass:password
-cat /opt/splunk/certmanager/tls.crt >/opt/splunk/etc/auth/protected.pem
-cat /tmp/private.key >>/opt/splunk/etc/auth/protected.pem
+cat /opt/splunk/certmanager/tls.crt >$SPLUNK_HOME/var/run/protected.pem
+cat /tmp/private.key >>$SPLUNK_HOME/var/run/protected.pem
 cat /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem >$SPLUNK_HOME/var/run/ssl/cabundle.pem
 
 echo "$(date) : Setting up web cert and key"
