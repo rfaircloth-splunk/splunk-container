@@ -152,6 +152,7 @@ crudini --set $APPS_ROLE_BASE/local/web.conf settings serverCert $SPLUNK_HOME/va
 
 
 echo "$(date) : Updating trust list"
+mkdir -p $SPLUNK_HOME/var/run/ssl/web.key || true
 sudo cp /opt/splunk/certmanager/ca.crt /usr/share/pki/ca-trust-source/anchors/certmanager.pem
 sudo update-ca-trust
 
