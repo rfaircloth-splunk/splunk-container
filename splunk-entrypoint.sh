@@ -47,7 +47,7 @@ then
     crudini --set $APPS_ROLE_BASE/local/server.conf clustering master_uri $SPLUNK_SERVER_CLUSTER_URI
 
     crudini --set $APPS_ROLE_BASE/local/server.conf replication_port-ssl://4001 disabled false
-    crudini --set $APPS_ROLE_BASE/local/server.conf replication_port-ssl://4001 serverCert $SPLUNK_HOME/etc/auth/protected.pem
+    crudini --set $APPS_ROLE_BASE/local/server.conf replication_port-ssl://4001 serverCert $SPLUNK_HOME/var/run/ssl/protected.pem
     crudini --set $APPS_ROLE_BASE/local/server.conf replication_port-ssl://4001 password password
 
 elif [ "$SPLUNK_ROLE" == "MASTER" ]
@@ -93,14 +93,14 @@ then
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf splunktcp-ssl:9997 connection_host ip
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf splunktcp-ssl:9997 compressed false
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf splunktcp-ssl:9997 disabled false
-    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf SSL serverCert $SPLUNK_HOME/etc/auth/protected.pem
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf SSL serverCert $SPLUNK_HOME/var/run/ssl/protected.pem
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf SSL sslPassword password
 
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http disabled 0
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http sourcetype hec:unknown
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http dedicatedIoThreads 4
-    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http serverCert $SPLUNK_HOME/etc/auth/protected.pem
+    crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http serverCert $SPLUNK_HOME/var/run/ssl/protected.pem
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http sslPassword password
 
     crudini --set $MASTER_APPS_ROLE_BASE/local/inputs.conf http://primary token ${SPLUNK_SERVER_HEC_TOKEN_PRIMARY}
@@ -139,16 +139,16 @@ crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig enableSplunkdSSL true
 crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig enableSplunkdSSL true
 crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig useClientSSLCompression true
 
-crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig sslRootCAPath $SPLUNK_HOME/etc/auth/cabundle.pem
-crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig serverCert $SPLUNK_HOME/etc/auth/protected.pem
+crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig sslRootCAPath $SPLUNK_HOME/var/run/ssl/cabundle.pem
+crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig serverCert $SPLUNK_HOME/var/run/ssl/protected.pem
 crudini --set $APPS_ROLE_BASE/local/server.conf sslConfig sslPassword password
 
 crudini --set $SPLUNK_HOME/etc/system/local/user-seed.conf user_info USERNAME admin
 crudini --set $SPLUNK_HOME/etc/system/local/user-seed.conf user_info PASSWORD $SPLUNK_PASSWORD
 
 
-crudini --set $APPS_ROLE_BASE/local/web.conf settings privKeyPath $SPLUNK_HOME/etc/auth/web.key
-crudini --set $APPS_ROLE_BASE/local/web.conf settings serverCert $SPLUNK_HOME/etc/auth/web.crt
+crudini --set $APPS_ROLE_BASE/local/web.conf settings privKeyPath $SPLUNK_HOME/var/run/ssl/web.key
+crudini --set $APPS_ROLE_BASE/local/web.conf settings serverCert $SPLUNK_HOME/var/run/ssl/web.crt
 
 
 echo "$(date) : Updating trust list"
@@ -159,11 +159,11 @@ echo "$(date) : Setting up Splunkd cert and key"
 openssl rsa -des -in /opt/splunk/certmanager/tls.key -out /tmp/private.key -passout pass:password
 cat /opt/splunk/certmanager/tls.crt >/opt/splunk/etc/auth/protected.pem
 cat /tmp/private.key >>/opt/splunk/etc/auth/protected.pem
-cat /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem >$SPLUNK_HOME/etc/auth/cabundle.pem
+cat /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem >$SPLUNK_HOME/var/run/ssl/cabundle.pem
 
 echo "$(date) : Setting up web cert and key"
-cat /opt/splunk/certmanager/tls.key >$SPLUNK_HOME/etc/auth/web.key
-cat /opt/splunk/certmanager/tls.crt >$SPLUNK_HOME/etc/auth/web.crt
+cat /opt/splunk/certmanager/tls.key >$SPLUNK_HOME/var/run/ssl/web.key
+cat /opt/splunk/certmanager/tls.crt >$SPLUNK_HOME/var/run/ssl/web.crt
 
 echo "$(date) : Starting Splunk"
 
