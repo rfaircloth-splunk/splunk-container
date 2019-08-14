@@ -34,8 +34,8 @@ COPY splunk-entrypoint.sh /usr/local/bin/
 
 RUN ln -s usr/local/bin/splunk-entrypoint.sh && \
     bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/chown splunk\:splunk /opt/splunk'" >> /etc/sudoers && \
-    bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/chown -R splunk\:splunk /opt/splunk/etc'" >> /etc/sudoers && \
-    bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/chown -R splunk\:splunk /opt/splunk/var'" >> /etc/sudoers && \
+    bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/chown splunk\:splunk /opt/splunk/etc'" >> /etc/sudoers && \
+    bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/chown splunk\:splunk /opt/splunk/var'" >> /etc/sudoers && \
     bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/update-ca-trust'" >> /etc/sudoers && \
     bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/cp /opt/splunk/certmanager/ca.crt /usr/share/pki/ca-trust-source/anchors/certmanager.pem'" >> /etc/sudoers
 

@@ -7,8 +7,8 @@ MASTER_APPS_ROLE_BASE=$SPLUNK_HOME/etc/master-apps/100_cluster
 
 echo "$(date) : Restoring ownership on etc and var"
 sudo chown splunk:splunk $SPLUNK_HOME
-sudo chown -R splunk:splunk $SPLUNK_HOME/etc
-sudo chown -R splunk:splunk $SPLUNK_HOME/var
+sudo chown splunk:splunk $SPLUNK_HOME/etc
+sudo chown splunk:splunk $SPLUNK_HOME/var
 
 mkdir /opt/splunk/var || true
 
@@ -152,7 +152,7 @@ crudini --set $APPS_ROLE_BASE/local/web.conf settings serverCert $SPLUNK_HOME/va
 
 
 echo "$(date) : Updating trust list"
-mkdir -p $SPLUNK_HOME/var/run/ssl/web.key || true
+mkdir -p $SPLUNK_HOME/var/run/ssl/ || true
 sudo cp /opt/splunk/certmanager/ca.crt /usr/share/pki/ca-trust-source/anchors/certmanager.pem
 sudo update-ca-trust
 
