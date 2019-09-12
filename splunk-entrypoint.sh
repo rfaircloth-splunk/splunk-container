@@ -6,15 +6,15 @@ MASTER_APPS_ROLE_BASE=$SPLUNK_HOME/etc/master-apps/100_cluster
 
 
 echo "$(date) : Restoring ownership on etc and var"
-sudo chown splunk:splunk $SPLUNK_HOME
-sudo chown splunk:splunk $SPLUNK_HOME/etc
-sudo chown splunk:splunk $SPLUNK_HOME/var
+#sudo chown splunk:splunk $SPLUNK_HOME
+#sudo chown splunk:splunk $SPLUNK_HOME/etc
+#sudo chown splunk:splunk $SPLUNK_HOME/var
 
 mkdir /opt/splunk/var || true
 
 echo "$(date) : Restoring default etc"
-ls /opt/splunk/splunk_etc.tar.gz
-tar -I pigz -xf /opt/splunk/splunk_etc.tar.gz -C /
+#ls /opt/splunk/splunk_etc.tar.gz
+tar -I pigz -xf /opt/splunk/splunk_etc_apps.tar.gz -C /
 
 echo "$(date) : Creating base app $APPS_ROLE_BASE"
 

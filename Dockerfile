@@ -26,7 +26,7 @@ RUN /install.sh && \
 
 
 COPY splunk /opt/splunk
-RUN tar cvfz /opt/splunk/splunk_etc.tar.gz /opt/splunk/etc/ &&\
+RUN tar cvfz /opt/splunk/splunk_etc_apps.tar.gz /opt/splunk/etc/apps &&\
     mkdir /opt/splunk/var && \
     chown -R splunk:splunk /opt/splunk
 
