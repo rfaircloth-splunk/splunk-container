@@ -6,7 +6,7 @@ MASTER_APPS_ROLE_BASE=$SPLUNK_HOME/etc/master-apps/100_cluster
 
 echo "$(date) : Restoring default etc"
 #ls /opt/splunk/splunk_etc.tar.gz
-tar -I pigz -xf /opt/splunk/splunk_etc_apps.tar.gz -C /
+tar -I pigz -xf /opt/splunk/splunk_etc.tar.gz -C /
 
 echo "$(date) : Creating base app $APPS_ROLE_BASE"
 
