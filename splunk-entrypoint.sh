@@ -1,16 +1,8 @@
 #!/bin/bash
 set -e
-SPLUNK_HOME=/opt/splunk
 APPS_ROLE_BASE=$SPLUNK_HOME/etc/apps/100_cluster
 MASTER_APPS_ROLE_BASE=$SPLUNK_HOME/etc/master-apps/100_cluster
 
-
-echo "$(date) : Restoring ownership on etc and var"
-#sudo chown splunk:splunk $SPLUNK_HOME
-#sudo chown splunk:splunk $SPLUNK_HOME/etc
-#sudo chown splunk:splunk $SPLUNK_HOME/var
-
-mkdir /opt/splunk/var || true
 
 echo "$(date) : Restoring default etc"
 #ls /opt/splunk/splunk_etc.tar.gz

@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 LABEL maintainer="support@splunk.com"
 #
 COPY install.sh /install.sh
@@ -27,7 +27,9 @@ RUN /install.sh && \
 
 COPY splunk /opt/splunk
 RUN tar cvfz /opt/splunk/splunk_etc_apps.tar.gz /opt/splunk/etc/apps &&\
+    rm -Rf /opt/splunk/etc/apps/* && \
     mkdir /opt/splunk/var && \
+    mkdir /opt/splunk/var/cache && \
     chown -R splunk:splunk /opt/splunk
 
 COPY splunk-entrypoint.sh /usr/local/bin/
@@ -39,6 +41,7 @@ RUN ln -s usr/local/bin/splunk-entrypoint.sh && \
     bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/update-ca-trust'" >> /etc/sudoers && \
     bash -c "echo -e '\nsplunk\tALL=(ALL) NOPASSWD:/bin/cp /opt/splunk/certmanager/ca.crt /usr/share/pki/ca-trust-source/anchors/certmanager.pem'" >> /etc/sudoers
 
+ENV SPLUNK_HOME=/opt/splunk
 USER splunk
 ENTRYPOINT ["splunk-entrypoint.sh"]
 CMD ["splunk"]

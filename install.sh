@@ -15,8 +15,23 @@
 
 set -e
 
+microdnf -y update
+
 # reinstalling local en def for now, removed in minimal image https://bugzilla.redhat.com/show_bug.cgi?id=1665251
-microdnf -y --nodocs install glibc-langpack-en
+microdnf -y --nodocs install \
+    curl \
+    glibc-langpack-en \
+    gzip \
+    openssl \
+    pigz \
+    procps \
+    python2 \
+    shadow-utils \
+    sudo \
+    tar \
+    wget
+
+pip2 -q --no-cache-dir install requests crudini
 
 #Currently there is no access to the UTF-8 char map, the following command is commented out until
 #the base container can generate the locale
@@ -25,13 +40,10 @@ microdnf -y --nodocs install glibc-langpack-en
 #We get around the gen above by forcing the language install, and then point to it.
 export LANG=en_US.utf8
 
-microdnf -y --nodocs install wget sudo shadow-utils procps pigz openssl
 #install busybox direct from the multiarch since epel isn't availible yet for redhat8
-wget https://busybox.net/downloads/binaries/1.28.1-defconfig-multiarch/busybox-x86_64
+wget https://busybox.net/downloads/binaries/1.31.0-defconfig-multiarch-musl/busybox-x86_64
 mv busybox-x86_64 /bin/busybox
 chmod +x /bin/busybox
-microdnf -y --nodocs install python2 tar gzip wget curl
-pip2 -q --no-cache-dir install requests crudini
 
 cd /bin
 ln -s busybox diff
